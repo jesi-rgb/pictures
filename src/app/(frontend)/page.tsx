@@ -5,7 +5,7 @@ import React from 'react'
 import { fileURLToPath } from 'url'
 
 import config from '@/payload.config'
-import './styles.css'
+import '../globals.css'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -16,8 +16,8 @@ export default async function HomePage() {
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
 
   return (
-    <div className="home">
-      <div className="content">
+    <div className="container max-w-4xl mx-auto my-20 flex flex-col gap-10">
+      <div className="flex flex-col gap-10">
         <picture>
           <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg" />
           <Image
@@ -29,17 +29,20 @@ export default async function HomePage() {
         </picture>
         {!user && <h1>Welcome to your new project.</h1>}
         {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
+        <div className="flex gap-5">
           <a
-            className="admin"
+            className="btn btn-primary btn-sm"
             href={payloadConfig.routes.admin}
             rel="noopener noreferrer"
             target="_blank"
           >
             Go to admin panel
           </a>
+          <a className="btn btn-secondary btn-sm" href="/blog">
+            View Blog
+          </a>
           <a
-            className="docs"
+            className="btn btn-secondary btn-sm"
             href="https://payloadcms.com/docs"
             rel="noopener noreferrer"
             target="_blank"
@@ -47,12 +50,6 @@ export default async function HomePage() {
             Documentation
           </a>
         </div>
-      </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
       </div>
     </div>
   )
