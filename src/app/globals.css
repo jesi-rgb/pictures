@@ -1,18 +1,24 @@
 @import 'tailwindcss';
 
 @plugin 'daisyui' {
-  themes: lofi;
+  themes:
+    lofi --default,
+    business --prefersdark;
 }
 
 @theme {
-  --font-sans: 'Output Sans 2 Beta';
+  --font-sans: 'AT Name Sans Variable';
   --font-mono: 'Input Mono';
+
+  --color-muted: color-mix(in srgb, var(--color-base-content), var(--color-base-100) 35%);
+  --color-subtle: color-mix(in oklch, var(--color-base-content), var(--color-base-100) 50%);
 }
 
 /* Rich text styles */
 .rich-text p {
   margin-bottom: 1rem;
   line-height: 1.75;
+  font-variation-settings: 'opsz' 8;
 }
 
 .rich-text p:last-child {
@@ -27,7 +33,7 @@
 .rich-text h6 {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
-  font-weight: bold;
+  font-weight: 500;
   line-height: 1.25;
 }
 

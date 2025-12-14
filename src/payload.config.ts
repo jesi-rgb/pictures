@@ -8,6 +8,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Photos } from './collections/Photos'
 import { Categories } from './collections/Categories'
 import { Blog } from './collections/Blog'
 
@@ -21,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Categories, Blog],
+  collections: [Users, Media, Photos, Categories, Blog],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -33,6 +34,11 @@ export default buildConfig({
     },
   }),
   sharp,
+  upload: {
+    limits: {
+      fileSize: 50000000, // 50MB
+    },
+  },
   plugins: [
     // storage-adapter-placeholder
   ],

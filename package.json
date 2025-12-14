@@ -15,7 +15,8 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
-    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
+    "reset-password": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/reset-password.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.65.0",
@@ -26,6 +27,7 @@
     "cross-env": "^7.0.3",
     "daisyui": "^5.5.5",
     "dotenv": "16.4.7",
+    "exifr": "^7.1.3",
     "graphql": "^16.8.1",
     "next": "15.4.7",
     "payload": "3.65.0",

@@ -41,6 +41,9 @@ export default async function HomePage() {
           <a className="btn btn-secondary btn-sm" href="/blog">
             View Blog
           </a>
+          <a className="btn btn-secondary btn-sm" href="/photos">
+            View Photos
+          </a>
           <a
             className="btn btn-secondary btn-sm"
             href="https://payloadcms.com/docs"

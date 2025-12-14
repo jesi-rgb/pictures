@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    photos: Photo;
     categories: Category;
     blog: Blog;
     'payload-kv': PayloadKv;
@@ -80,6 +81,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    photos: PhotosSelect<false> | PhotosSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     blog: BlogSelect<false> | BlogSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -189,6 +191,110 @@ export interface Media {
       filename?: string | null;
     };
     desktop?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "photos".
+ */
+export interface Photo {
+  id: number;
+  alt: string;
+  caption?: string | null;
+  /**
+   * ISO speed rating
+   */
+  iso?: number | null;
+  /**
+   * Shutter speed (e.g., 1/250)
+   */
+  shutterSpeed?: string | null;
+  /**
+   * Aperture (e.g., f/2.8)
+   */
+  aperture?: string | null;
+  /**
+   * Focal length in mm
+   */
+  focalLength?: number | null;
+  /**
+   * Camera make and model
+   */
+  camera?: string | null;
+  /**
+   * Lens model
+   */
+  lens?: string | null;
+  /**
+   * Date and time the photo was taken
+   */
+  dateTaken?: string | null;
+  /**
+   * GPS latitude
+   */
+  latitude?: number | null;
+  /**
+   * GPS longitude
+   */
+  longitude?: number | null;
+  /**
+   * Location name (manually added)
+   */
+  location?: string | null;
+  whiteBalance?: string | null;
+  flash?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    tablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    desktop?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    fullsize?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -416,6 +522,10 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'photos';
+        value: number | Photo;
+      } | null)
+    | ({
         relationTo: 'categories';
         value: number | Category;
       } | null)
@@ -539,6 +649,91 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
         desktop?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "photos_select".
+ */
+export interface PhotosSelect<T extends boolean = true> {
+  alt?: T;
+  caption?: T;
+  iso?: T;
+  shutterSpeed?: T;
+  aperture?: T;
+  focalLength?: T;
+  camera?: T;
+  lens?: T;
+  dateTaken?: T;
+  latitude?: T;
+  longitude?: T;
+  location?: T;
+  whiteBalance?: T;
+  flash?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        tablet?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        desktop?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        fullsize?:
           | T
           | {
               url?: T;

@@ -28,15 +28,15 @@ export default async function BlogListPage() {
           {posts.map((post) => {
             const featuredImage =
               post.featuredImage &&
-                typeof post.featuredImage !== 'string' &&
-                typeof post.featuredImage !== 'number'
+              typeof post.featuredImage !== 'string' &&
+              typeof post.featuredImage !== 'number'
                 ? post.featuredImage
                 : null
 
             const category =
               post.category &&
-                typeof post.category !== 'string' &&
-                typeof post.category !== 'number'
+              typeof post.category !== 'string' &&
+              typeof post.category !== 'number'
                 ? post.category
                 : null
 
@@ -53,7 +53,11 @@ export default async function BlogListPage() {
               >
                 {featuredImage && (
                   <figure>
-                    <img src={featuredImage.url || ''} alt={featuredImage.alt} className="w-full" />
+                    <img
+                      src={featuredImage.sizes?.thumbnail?.url || featuredImage.url || ''}
+                      alt={featuredImage.alt}
+                      className="w-full h-48 object-cover"
+                    />
                   </figure>
                 )}
                 <div className="card-body">

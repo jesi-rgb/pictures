@@ -1,0 +1,12 @@
+spec: v0.6
+
+name: paytest
+
+runtime: base-compat:latest
+
+labels:
+  cloud.unikraft.v1.instances/scale_to_zero.policy: "off"
+
+rootfs: ./Dockerfile
+
+cmd: ["/bin/sh", "-c", "HOSTNAME=0.0.0.0 node server.js"]
