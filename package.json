@@ -16,7 +16,8 @@
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
-    "reset-password": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/reset-password.ts"
+    "reset-password": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/reset-password.ts",
+    "sync-photos": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/sync-photos.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.65.0",
