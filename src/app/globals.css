@@ -7,7 +7,7 @@
 }
 
 @theme {
-  --font-sans: 'AT Name Sans Variable';
+  --font-sans: 'Roslindale Text';
   --font-mono: 'Input Mono';
 
   --color-muted: color-mix(in srgb, var(--color-base-content), var(--color-base-100) 35%);

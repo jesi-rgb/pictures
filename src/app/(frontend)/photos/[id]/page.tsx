@@ -36,38 +36,33 @@ export default async function PhotoDetailPage({ params }: { params: Promise<{ id
   ].filter((item) => item.value !== null && item.value !== undefined)
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="mb-8">
-        <Link href="/photos" className="btn btn-ghost btn-sm">
-          ← Back to Gallery
-        </Link>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-        {/* Left side - Image */}
-        <div className="relative lg:min-h-[80vh]">
-          {imageUrl && <ZoomableImage src={imageUrl} alt={alt} />}
+    <div className="fixed inset-0 flex">
+      {/* Full-screen image container */}
+      <div className="flex-1 relative max-w-3xl h-screen">
+        <div className="absolute top-4 left-4 z-10">
+          <Link href="/photos" className="btn btn-ghost btn-sm bg-base-100/80 backdrop-blur-sm">
+            ← Back to Gallery
+          </Link>
         </div>
 
-        {/* Right side - Metadata */}
-        <div className="flex flex-col">
-          <div>
-            <h1 className="text-3xl font-bold">{photo.caption}</h1>
-          </div>
+        {imageUrl && <ZoomableImage src={imageUrl} alt={alt} />}
+      </div>
 
-          <div className="divider"></div>
+      {/* Metadata sidebar */}
+      <div className="bg-base-100 p-8 overflow-y-auto w-2/4">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold">{photo.caption || alt}</h1>
+        </div>
 
-          <div>
-            <div className="grid grid-cols-2 gap-4">
-              {metadataItems.map((item, index) => (
-                <div key={index} className="">
-                  <dt className="text-xs font-semibold text-muted font-mono">{item.label}</dt>
-                  <dd className="font-medium">{item.value}</dd>
-                </div>
-              ))}
+        <div className="divider"></div>
+
+        <div className="space-y-4  grid grid-cols-1 md:grid-cols-2">
+          {metadataItems.map((item, index) => (
+            <div key={index}>
+              <dt className="text-xs font-semibold text-muted font-mono uppercase">{item.label}</dt>
+              <dd className="font-medium mt-1">{item.value}</dd>
             </div>
-          </div>
-
+          ))}
         </div>
       </div>
     </div>

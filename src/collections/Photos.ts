@@ -8,13 +8,13 @@ export const Photos: CollectionConfig = {
   },
   fields: [
     {
-      name: 'alt',
+      name: 'caption',
       type: 'text',
       required: true,
     },
     {
-      name: 'caption',
-      type: 'textarea',
+      name: 'alt',
+      type: 'text',
     },
     // Camera settings
     {
@@ -192,6 +192,10 @@ export const Photos: CollectionConfig = {
               // Flash
               if (exifData.Flash !== undefined) {
                 data.flash = exifData.Flash & 1 ? 'Fired' : 'Did not fire'
+              }
+
+              if (!data.alt) {
+                data.alt = data.caption
               }
             }
           } catch (error) {

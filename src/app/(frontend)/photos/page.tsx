@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import Image from 'next/image'
 import Link from 'next/link'
 import config from '@/payload.config'
+import './photos.css'
 
 export default async function PhotosPage() {
   const payloadConfig = await config
@@ -33,40 +34,26 @@ export default async function PhotosPage() {
           </a>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="masonry-grid">
           {photos.map((photo) => {
             const imageUrl = typeof photo.url === 'string' ? photo.url : ''
             const alt = typeof photo.alt === 'string' ? photo.alt : 'Photo'
 
             return (
-              <Link
-                key={photo.id}
-                href={`/photos/${photo.id}`}
-                className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow cursor-pointer"
-              >
-                <figure className="relative aspect-square">
+              <div key={photo.id} className="masonry-item mb-3">
+                <Link href={`/photos/${photo.id}`}>
                   {imageUrl && (
                     <Image
                       src={imageUrl}
                       alt={alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      width={photo.width || 400}
+                      height={photo.height || 400}
+                      className="h-auto w-full transform cursor-pointer shadow-md transition-transform hover:scale-102"
+                      sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
                   )}
-                </figure>
-                <div className="card-body p-4">
-                  <h2 className="card-title text-sm">{alt}</h2>
-                  {photo.camera && <p className="text-xs text-muted">{photo.camera}</p>}
-                  {(photo.aperture || photo.shutterSpeed || photo.iso) && (
-                    <div className="flex gap-2 text-xs text-subtle">
-                      {photo.aperture && <span>{photo.aperture}</span>}
-                      {photo.shutterSpeed && <span>{photo.shutterSpeed}</span>}
-                      {photo.iso && <span>ISO {photo.iso}</span>}
-                    </div>
-                  )}
-                </div>
-              </Link>
+                </Link>
+              </div>
             )
           })}
         </div>

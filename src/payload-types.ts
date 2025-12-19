@@ -206,8 +206,8 @@ export interface Media {
  */
 export interface Photo {
   id: number;
-  alt: string;
-  caption?: string | null;
+  caption: string;
+  alt?: string | null;
   /**
    * ISO speed rating
    */
@@ -665,8 +665,8 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "photos_select".
  */
 export interface PhotosSelect<T extends boolean = true> {
-  alt?: T;
   caption?: T;
+  alt?: T;
   iso?: T;
   shutterSpeed?: T;
   aperture?: T;
