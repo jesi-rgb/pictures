@@ -10,3 +10,9 @@ labels:
 rootfs: ./Dockerfile
 
 cmd: ["/bin/sh", "-c", "HOSTNAME=0.0.0.0 node server.js"]
+
+# Environment variables (set via kraft cloud deploy or Unikraft dashboard)
+# These are loaded from .env.production during deployment
+env:
+  NODE_ENV: production
+  PORT: "3000"

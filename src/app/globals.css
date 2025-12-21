@@ -2,16 +2,16 @@
 
 @plugin 'daisyui' {
   themes:
-    lofi --default,
+    pastel --default,
     business --prefersdark;
 }
 
 @theme {
-  --font-sans: 'Roslindale Text';
+  --font-sans: 'Roslindale Text', serif;
   --font-mono: 'Input Mono';
 
   --color-muted: color-mix(in srgb, var(--color-base-content), var(--color-base-100) 35%);
-  --color-subtle: color-mix(in oklch, var(--color-base-content), var(--color-base-100) 50%);
+  --color-subtle: color-mix(in oklch, var(--color-base-content), var(--color-base-100) 70%);
 }
 
 /* Rich text styles */

@@ -1,6 +1,6 @@
-// storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -40,6 +40,35 @@ export default buildConfig({
     },
   },
   plugins: [
-    // storage-adapter-placeholder
+    // Only use R2 storage in production
+    ...(process.env.NODE_ENV === 'production'
+      ? [
+          s3Storage({
+            collections: {
+              media: {
+                prefix: 'media',
+                generateFileURL: ({ filename, prefix }) => {
+                  return `${process.env.CLOUDFLARE_PUBLIC_URL}/${prefix}/${filename}`
+                },
+              },
+              photos: {
+                prefix: 'photos',
+                generateFileURL: ({ filename, prefix }) => {
+                  return `${process.env.CLOUDFLARE_PUBLIC_URL}/${prefix}/${filename}`
+                },
+              },
+            },
+            bucket: process.env.CLOUDFLARE_BUCKET || '',
+            config: {
+              endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+              credentials: {
+                accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID || '',
+                secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY || '',
+              },
+              region: 'auto',
+            },
+          }),
+        ]
+      : []),
   ],
 })

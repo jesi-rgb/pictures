@@ -13,6 +13,8 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
+    // Disable local storage in production (R2 will be used via plugin)
+    disableLocalStorage: process.env.NODE_ENV === 'production',
     imageSizes: [
       {
         name: 'thumbnail',

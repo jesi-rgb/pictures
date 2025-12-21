@@ -1,14 +1,18 @@
-# Payload Blank Template
+# Payload CMS - Photography Portfolio
 
-This template comes configured with the bare minimum to get started on anything you need.
+A Payload CMS application configured for photography portfolio management with PostgreSQL, Cloudflare R2 storage, and Unikraft Cloud deployment.
 
-## Quick start
+## Features
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+- **Collections**: Photos, Media, Blog, Categories, Users
+- **Upload Management**: Image resizing, EXIF data extraction
+- **Cloud Storage**: Cloudflare R2 for production images
+- **Database**: PostgreSQL with full-text search
+- **Deployment**: Optimized for Unikraft Cloud
 
-## Quick Start - local setup
+## Quick Start - Local Development
 
-To spin up this template locally, follow these steps:
+To run this project locally, follow these steps:
 
 ### Clone
 
@@ -16,52 +20,186 @@ After you click the `Deploy` button above, you'll want to have standalone copy o
 
 ### Development
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+1. **Clone the repository** (if you haven't already)
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+2. **Set up environment variables:**
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+   ```bash
+   cp .env.example .env
+   ```
 
-#### Docker (Optional)
+   Update `.env` with your local PostgreSQL connection string.
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+3. **Install dependencies:**
 
-To do so, follow these steps:
+   ```bash
+   pnpm install
+   ```
 
-- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+4. **Start PostgreSQL** (using Docker):
 
-## How it works
+   ```bash
+   docker-compose up -d
+   ```
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+5. **Run development server:**
 
-### Collections
+   ```bash
+   pnpm dev
+   ```
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+6. **Open your browser:**
+   ```
+   http://localhost:3000
+   ```
 
-- #### Users (Authentication)
+Follow the on-screen instructions to create your first admin user.
 
-  Users are auth-enabled collections that have access to the admin panel.
+### Available Scripts
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+```bash
+# Development
+pnpm dev          # Start dev server
+pnpm build        # Build for production
+pnpm start        # Start production server
 
-- #### Media
+# Database
+pnpm db:dump      # Dump local database
+pnpm db:restore   # Restore database to production
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+# Cloudflare R2
+pnpm sync:r2      # Upload images to R2
 
-### Docker
+# Deployment
+pnpm migrate:prod # Complete migration to production
+pnpm validate:prod # Validate production setup
+./deploy.sh       # Deploy to Unikraft Cloud
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+# Utilities
+pnpm generate:types  # Generate TypeScript types
+pnpm sync-photos     # Sync photos from /photos directory
+```
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+## Collections
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+### Photos
 
-## Questions
+- Upload-enabled with EXIF data extraction
+- Auto-generates multiple image sizes (thumbnail, card, tablet, desktop, fullsize)
+- Stores camera settings, GPS coordinates, date taken
+- Local storage in dev, R2 in production
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+### Media
+
+- General media uploads
+- Multiple image sizes
+- Local storage in dev, R2 in production
+
+### Blog
+
+- Blog post management
+- Rich text editor (Lexical)
+- Category support
+
+### Categories
+
+- Organize blog posts and content
+
+### Users
+
+- Authentication enabled
+- Admin panel access
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **CMS**: Payload CMS 3
+- **Database**: PostgreSQL 16
+- **Storage**: Cloudflare R2 (production)
+- **Deployment**: Unikraft Cloud
+- **Styling**: Tailwind CSS + DaisyUI
+
+## 🚀 Production Deployment
+
+Deploy to Unikraft Cloud with Cloudflare R2 storage:
+
+### Quick Deployment
+
+```bash
+# 1. Set up environment
+cp .env.production.example .env.production
+# Edit .env.production with your credentials
+
+# 2. Migrate data
+pnpm run migrate:prod
+
+# 3. Deploy
+./deploy.sh
+```
+
+### Detailed Instructions
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment guide including:
+
+- Setting up Unikraft Cloud PostgreSQL
+- Configuring Cloudflare R2
+- Database migration
+- Image upload to R2
+- Troubleshooting
+
+### Environment Variables
+
+#### Development (.env)
+
+```bash
+DATABASE_URI=postgresql://postgres:password@localhost:5432/payloadcms
+PAYLOAD_SECRET=your-secret-here
+PORT=3000
+```
+
+#### Production (.env.production)
+
+```bash
+DATABASE_URI=postgresql://postgres:PASSWORD@postgres-XXX.internal:5432/payloadcms
+PAYLOAD_SECRET=your-production-secret
+CLOUDFLARE_ACCOUNT_ID=your-account-id
+CLOUDFLARE_ACCESS_KEY_ID=your-r2-access-key
+CLOUDFLARE_SECRET_ACCESS_KEY=your-r2-secret-key
+CLOUDFLARE_BUCKET=jesirgb-pictures
+CLOUDFLARE_PUBLIC_URL=https://pub-xxxxx.r2.dev
+NODE_ENV=production
+PORT=3000
+```
+
+## Documentation
+
+- [DEPLOYMENT.md](docs/DEPLOYMENT.md) - Complete deployment guide
+- [R2_SETUP.md](R2_SETUP.md) - Cloudflare R2 configuration
+- [AGENTS.md](AGENTS.md) - Development guidelines
+
+## Architecture
+
+```
+Development (Local)
+├── Next.js App (localhost:3000)
+├── PostgreSQL (Docker)
+└── Local File Storage (/media, /photos)
+
+Production (Unikraft Cloud)
+├── Next.js App (Unikraft)
+├── PostgreSQL (Unikraft)
+└── Cloudflare R2 (jesirgb-pictures)
+    ├── /media/
+    └── /photos/
+```
+
+## Contributing
+
+1. Follow code style in [AGENTS.md](AGENTS.md)
+2. Use Prettier (single quotes, no semicolons)
+3. Generate types after schema changes: `pnpm generate:types`
+4. Test locally before deploying
+
+## License
+
+MIT

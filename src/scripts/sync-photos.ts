@@ -56,6 +56,7 @@ async function syncPhotos() {
       const photoData: Omit<Photo, 'id' | 'sizes' | 'createdAt' | 'updatedAt'> &
         Partial<Pick<Photo, 'sizes'>> = {
         alt: filename.replace(/\.(jpg|JPG)$/, ''),
+        caption: filename.replace(/\.(jpg|JPG)$/, ''),
       }
 
       if (exifData) {

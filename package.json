@@ -18,12 +18,19 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "reset-password": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/reset-password.ts",
-    "sync-photos": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/sync-photos.ts"
+    "sync-photos": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/sync-photos.ts",
+    "fix-duplicate-filenames": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/fix-duplicate-filenames.ts",
+    "db:dump": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env src/scripts/dump-database.ts",
+    "db:restore": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env.production src/scripts/restore-database.ts",
+    "sync:r2": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env.production src/scripts/upload-to-r2.ts",
+    "migrate:prod": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env.production src/scripts/migrate-to-production.ts",
+    "validate:prod": "cross-env NODE_OPTIONS=--no-deprecation tsx --env-file=.env.production src/scripts/validate-deployment.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.65.0",
     "@payloadcms/next": "3.65.0",
     "@payloadcms/richtext-lexical": "3.65.0",
+    "@payloadcms/storage-s3": "3.65.0",
     "@payloadcms/ui": "3.65.0",
     "@tailwindcss/postcss": "^4.1.17",
     "cross-env": "^7.0.3",
