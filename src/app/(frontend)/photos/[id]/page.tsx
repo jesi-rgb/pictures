@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import config from '@/payload.config'
 import { ZoomableImage } from '@/components/ZoomableImage'
 
+export const dynamic = 'force-dynamic'
+
 export default async function PhotoDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const payloadConfig = await config
@@ -63,10 +65,7 @@ export default async function PhotoDetailPage({ params }: { params: Promise<{ id
             ))}
           </div>
 
-          <Link
-            href="/photos"
-            className="btn backdrop-blur-sm self-end mt-6"
-          >
+          <Link href="/photos" className="btn backdrop-blur-sm self-end mt-6">
             ← Back to Gallery
           </Link>
         </div>
@@ -98,11 +97,9 @@ export default async function PhotoDetailPage({ params }: { params: Promise<{ id
             ))}
           </div>
 
-
           <Link href="/photos" className="btn btn-ghost btn-sm self-end">
             ← Back to Gallery
           </Link>
-
         </div>
       </div>
     </div>
