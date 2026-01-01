@@ -7,7 +7,8 @@
 }
 
 @theme {
-  --font-sans: 'Roslindale Text', serif;
+  --font-sans: 'Altinn-DIN Exp', serif;
+  --font-title: 'Altinn-DIN', serif;
   --font-mono: 'Input Mono';
 
   --color-muted: color-mix(in srgb, var(--color-base-content), var(--color-base-100) 35%);

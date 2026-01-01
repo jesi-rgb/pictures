@@ -47,7 +47,7 @@ export default async function PhotoDetailPage({ params }: { params: Promise<{ id
         {/* Metadata sidebar */}
         <div className="bg-base-100 p-8 overflow-y-auto w-2/4">
           <div className="mb-6">
-            <h1 className="text-2xl font-bold">{photo.caption || alt}</h1>
+            <h1 className="text-2xl lg:text-4xl font-title font-bold">{photo.caption || alt}</h1>
           </div>
 
           <div className="divider"></div>
